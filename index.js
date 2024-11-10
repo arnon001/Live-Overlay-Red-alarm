@@ -7,6 +7,12 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 const interval = 500; // Polling every 0.5 seconds
+let currentAlert = null;
+
+axios.get('https://kore.co.il/redAlert.json')
+  .then(response => {
+    console.log(response.data);
+  })
 
 var poll = function () {
   axios.get('https://kore.co.il/redAlert.json')

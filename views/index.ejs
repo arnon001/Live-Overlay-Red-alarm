@@ -67,7 +67,7 @@
           const alertCitiesContainer = document.getElementById('alertCitiesContainer');
           const noAlertMessage = document.getElementById('noAlertMessage');
   
-          if (alert && alert.type !== 'none') {
+          if (alert && alert.title != undefined) {
               alertContainer.classList.add('active');
               alertType.textContent = `סוג התראה: ${alert.title}`;
   
