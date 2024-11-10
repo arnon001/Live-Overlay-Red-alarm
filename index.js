@@ -9,14 +9,13 @@ app.use(express.static('public'));
 const interval = 500; // Polling every 0.5 seconds
 let currentAlert = null;
 
-axios.get('https://kore.co.il/redAlert.json')
-  .then(response => {
-    console.log(response.data);
-  })
 
 var poll = function () {
   axios.get('https://kore.co.il/redAlert.json')
   .then(response => {
+    if(currentAlert != response.data) {
+      console.log(response.data);
+    }
     currentAlert = response.data;
 
     setTimeout(poll, interval);
