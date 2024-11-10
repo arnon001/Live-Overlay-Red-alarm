@@ -19,7 +19,7 @@ body {
     text-align: center;
     position: absolute;
     top: 0;
-    right: -300px; /* Off-screen to the right */
+    right: -400px; /* Off-screen to the right */
     height: 100%;
     transition: right 0.5s ease; /* Slide-in transition */
 }
