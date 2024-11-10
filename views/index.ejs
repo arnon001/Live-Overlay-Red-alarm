@@ -22,38 +22,38 @@
       let currentAlert = null;
       let isListeningForRealAlarms = true; // Flag to control listening to real alarms
   
-    //   function typeInHebrew(type) {
-    //       switch (type) {
-    //           case "missiles":
-    //               return "ירי טילים ורקטות";
-    //           case "general":
-    //               return "אירוע כללי";
-    //           case "radiologicalEvent":
-    //               return "אירוע רדיולוגי";
-    //           case "earthQuake":
-    //               return "רעידת אדמה";
-    //           case "tsunami":
-    //               return "צונאמי";
-    //           case "hostileAircraftIntrusion":
-    //               return "חדירת כלי טייס עויינים";
-    //           case "hazardousMaterials":
-    //               return "חומרים מסוכנים";
-    //           case "terroristInfiltration":
-    //               return "חשש לחדירת מחבלים";
-    //           case "missilesDrill":
-    //               return "אימון של ירי טילים ורקטות";
-    //           case "earthQuakeDrill":
-    //               return "אימון של רעידת אדמה";
-    //           case "hostileAircraftIntrusionDrill":
-    //               return "אימון של חדירת כלי טיס עויינים";
-    //           case "hazardousMaterialsDrill":
-    //               return "אימון של אירוע חומרים מסוכנים";
-    //           case "terroristInfiltrationDrill":
-    //               return "אימון של חדירת מחבלים";
-    //           default:
-    //               return "לא ידוע";
-    //       }
-    //   }
+      function typeInHebrew(type) {
+          switch (type) {
+              case "missiles":
+                  return "ירי טילים ורקטות";
+              case "general":
+                  return "אירוע כללי";
+              case "radiologicalEvent":
+                  return "אירוע רדיולוגי";
+              case "earthQuake":
+                  return "רעידת אדמה";
+              case "tsunami":
+                  return "צונאמי";
+              case "hostileAircraftIntrusion":
+                  return "חדירת כלי טייס עויינים";
+              case "hazardousMaterials":
+                  return "חומרים מסוכנים";
+              case "terroristInfiltration":
+                  return "חשש לחדירת מחבלים";
+              case "missilesDrill":
+                  return "אימון של ירי טילים ורקטות";
+              case "earthQuakeDrill":
+                  return "אימון של רעידת אדמה";
+              case "hostileAircraftIntrusionDrill":
+                  return "אימון של חדירת כלי טיס עויינים";
+              case "hazardousMaterialsDrill":
+                  return "אימון של אירוע חומרים מסוכנים";
+              case "terroristInfiltrationDrill":
+                  return "אימון של חדירת מחבלים";
+              default:
+                  return "לא ידוע";
+          }
+      }
   
       const updateAlertBox = (alert) => {
           if (JSON.stringify(alert) === JSON.stringify(currentAlert)) {
@@ -67,12 +67,12 @@
           const alertCitiesContainer = document.getElementById('alertCitiesContainer');
           const noAlertMessage = document.getElementById('noAlertMessage');
   
-          if (alert && alert.title != undefined) {
+          if (alert && alert.type !== 'none') {
               alertContainer.classList.add('active');
-              alertType.textContent = `סוג התראה: ${alert.title}`;
+              alertType.textContent = `סוג התראה: ${typeInHebrew(alert.type)}`;
   
               alertCitiesContainer.innerHTML = '';
-              alert.data.forEach(city => {
+              alert.cities.forEach(city => {
                   const cityBox = document.createElement('div');
                   cityBox.classList.add('alert-location');
                   cityBox.textContent = city;
@@ -108,8 +108,8 @@
   
               // Show test alert
               const testAlert = {
-                  title: 'רעידת אדמה',
-                  data: ['תל אביב - מזרח', 'חיפה - כרמל ועיר תחתית', 'עין גדי', 'ירושלים - מערב']
+                  type: 'missiles',
+                  cities: ['תל אביב - מזרח', 'חיפה - כרמל ועיר תחתית', 'עין גדי', 'ירושלים - מערב']
               };
               updateAlertBox(testAlert);
           }
