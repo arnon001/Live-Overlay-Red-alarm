@@ -1,7 +1,7 @@
 const express = require('express');
 const pikudHaoref = require('pikud-haoref-api');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 1234;
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
