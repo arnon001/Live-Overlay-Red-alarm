@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>התראות פיקוד העורף</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="alert-container" id="alertContainer">
+        <div class="alert-header">
+            <img src="image.png" alt="Alert Logo" class="alert-logo">
+            התראות פיקוד העורף
+        </div>
+        <div class="alert-subtitle" id="alertType">סוג התראה: אין</div>
+        <div class="alert-content" id="alertCitiesContainer">
+            <p id="noAlertMessage">אין כרגע התראות פעילות.</p>
+        </div>
+    </div>
+
+    <script>
+      let currentAlert = null;
+      let isListeningForRealAlarms = true; // Flag to control listening to real alarms
+  
+      function typeInHebrew(type) {
+          switch (type) {
+              case "missiles":
+                  return "ירי טילים ורקטות";
+              case "general":
+                  return "אירוע כללי";
+              case "radiologicalEvent":
+                  return "אירוע רדיולוגי";
+              case "earthQuake":
+                  return "רעידת אדמה";
+              case "tsunami":
+                  return "צונאמי";
+              case "hostileAircraftIntrusion":
+                  return "חדירת כלי טייס עויינים";
+              case "hazardousMaterials":
+                  return "חומרים מסוכנים";
+              case "terroristInfiltration":
+                  return "חשש לחדירת מחבלים";
+              case "missilesDrill":
+                  return "אימון של ירי טילים ורקטות";
+              case "earthQuakeDrill":
+                  return "אימון של רעידת אדמה";
+              case "hostileAircraftIntrusionDrill":
+                  return "אימון של חדירת כלי טיס עויינים";
+              case "hazardousMaterialsDrill":
+                  return "אימון של אירוע חומרים מסוכנים";
+              case "terroristInfiltrationDrill":
+                  return "אימון של חדירת מחבלים";
+              default:
+                  return "לא ידוע";
+          }
+      }
+  
+      const updateAlertBox = (alert) => {
+          if (JSON.stringify(alert) === JSON.stringify(currentAlert)) {
+              return;
+          }
+  
+          currentAlert = alert;
+  
+          const alertContainer = document.getElementById('alertContainer');
+          const alertType = document.getElementById('alertType');
+          const alertCitiesContainer = document.getElementById('alertCitiesContainer');
+          const noAlertMessage = document.getElementById('noAlertMessage');
+  
+          if (alert && alert.type !== 'none') {
+              alertContainer.classList.add('active');
+              alertType.textContent = `סוג התראה: ${typeInHebrew(alert.type)}`;
+  
+              alertCitiesContainer.innerHTML = '';
+              alert.cities.forEach(city => {
+                  const cityBox = document.createElement('div');
+                  cityBox.classList.add('alert-location');
+                  cityBox.textContent = city;
+                  alertCitiesContainer.appendChild(cityBox);
+              });
+  
+              noAlertMessage.style.display = 'none';
+          } else {
+              alertContainer.classList.remove('active');
+              alertType.textContent = 'סוג התראה: אין';
+              alertCitiesContainer.innerHTML = '';
+              noAlertMessage.style.display = 'block';
+          }
+      };
+  
+      // Polling function to fetch real alerts
+      const pollForRealAlerts = async () => {
+          if (isListeningForRealAlarms) {
+              const response = await fetch('/alert');
+              const alert = await response.json();
+              updateAlertBox(alert);
+          }
+      };
+  
+      // Start polling at intervals
+      setInterval(pollForRealAlerts, 500);
+  
+      // Add a keydown event listener for the "Return" key to show a test alarm
+      document.addEventListener('keydown', (event) => {
+          if (event.key === "Enter") {
+              // Stop listening for real alarms
+              isListeningForRealAlarms = false;
+  
+              // Show test alert
+              const testAlert = {
+                  type: 'missiles',
+                  cities: ['תל אביב - מזרח', 'חיפה - כרמל ועיר תחתית', 'עין גדי', 'ירושלים - מערב']
+              };
+              updateAlertBox(testAlert);
+          }
+      });
+  </script>
+  
+  
+  
+</body>
+</html>

@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@600&display=swap');
+
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #00FF00; /* Light green background (green screen) */
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.alert-container {
+    width: 300px;
+    border-left: 10px solid orange;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: -300px; /* Off-screen to the right */
+    height: 100%;
+    transition: right 0.5s ease; /* Slide-in transition */
+}
+
+.alert-container.active {
+    right: 0; /* Slide in from right */
+}
+
+.alert-header {
+    background-color: #003A75;
+    color: white;
+    padding: 10px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid orange;
+}
+
+.alert-logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.alert-subtitle {
+    font-size: 16px;
+    background-color: black;
+    padding: 5px;
+    color: white;
+    font-family: 'Arimo', sans-serif;
+    margin-top: 5px;
+}
+
+.alert-content {
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Arimo', sans-serif;
+    text-align: center;
+}
+
+.alert-location {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    border: 2px solid orange;
+    text-align: center;
+    opacity: 1; /* Remove opacity transition */
+    transform: translateY(0); /* Remove slide-down effect */
+}
